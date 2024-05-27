@@ -15,7 +15,7 @@ const MenuContainer = ({users}) => {
           Our Hot Dishes
         </p>
 
-        <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none" id="scrolling">
+        <div className="w-full flex items-center justify-start md:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none" id="scrolling">
           {
             users.map((category) => (
               <motion.div

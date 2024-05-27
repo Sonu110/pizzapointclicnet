@@ -7,9 +7,6 @@ import { Link } from "react-router-dom";
 const RowContainer = ({ flag, data ,scrollValue, cat ,res}) => {
   const rowContainer = useRef();
   
-
-console.log(data);
-  console.log(scrollValue);
   useEffect(() => {
     rowContainer.current.scrollLeft += scrollValue;
   }, [scrollValue]);

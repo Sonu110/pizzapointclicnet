@@ -1,19 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+   
   ],
   theme: {
     extend: {
-     
       fontFamily: {
         'shadows-into-light': ['"Shadows Into Light"', 'cursive'],
       },
-
-
-
-
-
       width: {
         150: "150px",
         190: "190px",
@@ -72,4 +67,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
