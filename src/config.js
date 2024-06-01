@@ -1,5 +1,5 @@
 // config.js
 
-const API_ENDPOINT = "http://localhost:4000";
+const API_ENDPOINT = "https://pizzapoint-website-backend.onrender.com";
 
 export default API_ENDPOINT; 

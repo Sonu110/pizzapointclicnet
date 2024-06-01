@@ -5,6 +5,7 @@ import { Cards } from '../components/Cards';
 import API_ENDPOINT from '../config';
 import { useSelector } from 'react-redux';
 import Selectonloader from '../components/Selectonloader';
+import Loader from '../Dashbord/components/Loader';
 
 
 const Menuvideo = lazy(() => import('../components/Menuvideo'));
@@ -67,7 +68,7 @@ function Menuhomepage() {
 
   return (
     <>
-      <Suspense fallback={<Pizzaloader></Pizzaloader>}>
+      <Suspense fallback={<Loader></Loader>}>
         <Menuvideo  searchQuery={searchQuery}  setSearchQuery={setSearchQuery} filteredItems={filteredItems} />
       </Suspense>
       <div>
