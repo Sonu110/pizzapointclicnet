@@ -59,10 +59,10 @@ function Userlist() {
         </div>
       </div>
       <div className="overflow-y-hidden rounded-lg border">
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-y-scroll h-screen">
+          <table className="w-full ">
             <thead>
-              <tr className="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+              <tr className="   bg-slate-700 text-left text-xs font-semibold uppercase tracking-widest text-white">
                 <th className="px-5 py-3">S.no</th>
                 <th className="px-5 py-3">Full Name</th>
                 <th className="px-5 py-3">Email</th>
@@ -71,7 +71,7 @@ function Userlist() {
                 <th className="px-5 py-3">Created</th>
               </tr>
             </thead>
-            <tbody className="text-gray-500">
+            <tbody className="text-black ">
               {users.map((i, index) => (
                 <tr key={i._id} className='font-semibold'>
                   <td className="border-b border-gray-200 bg-white px-5 py-5 text-md">

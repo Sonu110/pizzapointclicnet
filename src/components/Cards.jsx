@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import API_ENDPOINT from '../config';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../Redux/reducers/Cartslier';
+import { MyContext } from '../context/context';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-export function Cards({img, name}) {
+export  function  Cards({_id,discount,category,originalPrice,img, name  ,des , price}) {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate()
+const {userdata} = useContext(MyContext)
+  const handleAddToCart = () => {
+    if(userdata.length===0)
+      {
+        navigate('/login')
+      }
+      else
+      {
+
+        dispatch(addItem({ _id, discount,  category,  originalPrice,  img, name, des, price , }));
+      }
+
+  };
   return (
     <div className="w-full max-w-[26rem] shadow-lg rounded-lg overflow-hidden">
       <div className="relative p-2  overflow-hidden">
         <img
-          src={img}
+        src={`${API_ENDPOINT}/${img}`}
+        alt={img}
           className="w-full rounded-lg h-52 object-cover  "
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent  via-transparent to-black/60" />
@@ -31,16 +53,15 @@ export function Cards({img, name}) {
           </div>
         </div>
         <p className="text-gray-700">
-          Enter a freshly updated and thoughtfully furnished peaceful home
-          surrounded by ancient trees, stone walls, and open meadows.
+        {des ? (des.length > 100 ? des.slice(0, 150) + "..." : des) : 'Desciptions'}
         </p>
       <div className=' text-red-500 font-bold flex gap-2 mt-5  font-shadows-into-light'>
-      ₹<span>{55}</span>
+      ₹<span>{price}</span>
 
       </div>
       </div>
       <div className="p-4 pt-0">
-        <button className="w-full bg-black text-white py-2 rounded-lg hover:bg-black focus:outline-none focus:ring-2 focus:ring-black">
+        <button className="w-full bg-black text-white py-2 rounded-lg hover:bg-black focus:outline-none focus:ring-2 focus:ring-black" onClick={handleAddToCart}>
          Add to cart
         </button>
       </div>

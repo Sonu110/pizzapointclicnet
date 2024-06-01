@@ -1,15 +1,64 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTachometerAlt, FaClipboardList, FaUsers, FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
+import { MyContext } from '../../context/context';
+import API_ENDPOINT from '../../config';
+
+import io from 'socket.io-client';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DashbordHeader({ navbar, setnavbar }) {
-   const menuItems = [
-      { id: 1, name: "Dashboard", path: "", icon: <FaTachometerAlt /> },
-      { id: 2, name: "Menu", path: "menu", icon: <FaClipboardList /> },
-      { id: 3, name: "Users", path: "users", icon: <FaUsers /> },
-      { id: 4, name: "Order", path: "order", orderCount: 5, icon: <FaShoppingCart /> },
-      { id: 5, name: "Logout", path: "/", icon: <FaSignOutAlt /> }
-    ];
+  const navigate = useNavigate();
+  const {logout  , setnotifications  ,notifications  , userdata } = useContext(MyContext)
+
+  const handleLogoutClick = (event) => {
+    event.preventDefault();
+
+    const confirmed = window.confirm('Are you sure you want to logout?');
+    if (confirmed) {
+      logout()
+    }
+  };
+  useEffect(() => {
+    if (userdata._id) {
+      const socket = io(API_ENDPOINT);
+
+      socket.on('connect', () => {
+        console.log('Connected to Socket.IO server');
+        socket.emit('joinRoom', { UserId: userdata._id });
+      });
+
+      socket.on('Countneworder', ({ count }) => {
+        toast.success("new  order ");
+        setnotifications(count);
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from Socket.IO server');
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [userdata]);
+
+
+
+
+
+
+
+
+
+  const menuItems = [
+    { id: 1, name: "Dashboard", path: "", icon: <FaTachometerAlt /> },
+    { id: 2, name: "Menu", path: "menu", icon: <FaClipboardList /> },
+    { id: 3, name: "Users", path: "users", icon: <FaUsers /> },
+    { id: 4, name: "Order", path: "order", orderCount: notifications   , icon: <FaShoppingCart /> },
+    { id: 5, name: "Logout", path: "/", icon: <FaSignOutAlt />, onClick: handleLogoutClick }
+  ];
 
   return (
     <div>
@@ -72,26 +121,52 @@ function DashbordHeader({ navbar, setnavbar }) {
                 <ul className="space-y-2 pb-2">
                   {menuItems.map(item => (
                     <li key={item.id}>
-                      <Link
-                        to={item.path}
-                        className="text-base hover:text-white text-gray-900 font-semibold cursor-pointer rounded-lg flex items-center p-2 hover:bg-blue-500 group"
-                      >
-                       <span className=' p-2 rounded-full  text-white bg-blue-500'>
-                        
-                         {item.icon}
-                        </span>
-                        <span className="ml-3">{item.name}</span>
-                        {item.name === "Order" && item.orderCount !== undefined && (
-                          <span className="ml-auto bg-red-500 text-white text-sm font-medium inline-flex items-center justify-center px-2.5 py-0.5 rounded-full">
-                            {item.orderCount}
+                      {item.name === "Logout" ? (
+                        <a
+                          href="/"
+                          onClick={item.onClick}
+                          className="text-base hover:text-white text-gray-900 font-semibold cursor-pointer rounded-lg flex items-center p-2 hover:bg-blue-500 group"
+                        >
+                          <span className='p-2 rounded-full text-white bg-blue-500'>
+                            {item.icon}
                           </span>
-                        )}
-                      </Link>
+                          <span className="ml-3">{item.name}</span>
+                        </a>
+                      ) : (
+                        <Link
+                          to={item.path}
+                          className="text-base hover:text-white text-gray-900 font-semibold cursor-pointer rounded-lg flex items-center p-2 hover:bg-blue-500 group"
+                        >
+                          <span className='p-2 rounded-full text-white bg-blue-500'>
+                            {item.icon}
+                          </span>
+                          <span className="ml-3">{item.name}</span>
+                          {item.name === "Order" &&   item.orderCount !== undefined  && item.orderCount >0  && (
+                            <span className="ml-auto bg-red-500 text-white text-sm font-medium inline-flex items-center justify-center px-2.5 py-0.5 rounded-full">
+                              {item.orderCount}
+                            </span>
+                          )}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
+          
+            <ToastContainer
+        position="top-right"
+        className={'  mt-20'}
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ zIndex: 9999 }} // Ensure the ToastContainer is on top
+      />
           </div>
         </aside>
       </div>

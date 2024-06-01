@@ -1,39 +1,120 @@
-import React, { useEffect, Suspense, lazy } from 'react';
+import React, { useEffect, Suspense, lazy, useState, useMemo } from 'react';
 import MenuContainer from '../components/MenuContainer';
-import Menusrollbar from '../components/Menusrollbar';
-import RowContainer from '../components/RowContainer';
-import { Menu } from '../utils/Products';
-import { categories, restorent } from '../utils/data';
 import Pizzaloader from '../components/Pizzaloader';
 import { Cards } from '../components/Cards';
+import API_ENDPOINT from '../config';
+import { useSelector } from 'react-redux';
+import Selectonloader from '../components/Selectonloader';
+
 
 const Menuvideo = lazy(() => import('../components/Menuvideo'));
 
 function Menuhomepage() { 
+  const [categories, setCategories] = useState([])
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingCategories, setLoadingCategories] = useState(true);
+  const [selectcatgory , setCategorie] = useState('Burrger')
+  const filterdata = useMemo(() => {
+    return selectcatgory === 'All' ? menuItems : menuItems.filter((value) => value.category === selectcatgory);
+  }, [menuItems, selectcatgory]);
+  const filteredItems = menuItems.filter(item =>
+    item.ProductName.toLowerCase().startsWith(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    // Fetch existing categories from the server
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch(`${API_ENDPOINT}/categories`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            const data = await response.json();
+            setCategories(data);
+            setLoadingCategories(false); // Set loading to false once categories are fetched
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            setLoadingCategories(false); // Set loading to false if an error occurs
+        }
+    };
+    fetchCategories();
+}, []);
+
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+        try {
+            const response = await fetch(`${API_ENDPOINT}/menu`);
+            const data = await response.json();
+            setMenuItems(data);
+            setLoading(false); // Set loading to false once data is fetched
+        } catch (error) {
+            console.error('Error fetching menu items:', error);
+            setLoading(false); // Set loading to false if an error occurs
+        }
+    };
+
+    fetchMenuItems();
+}, []); // Run only once when the component mounts
+      
+      useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, []);
 
   return (
     <>
       <Suspense fallback={<Pizzaloader></Pizzaloader>}>
-        <Menuvideo />
+        <Menuvideo  searchQuery={searchQuery}  setSearchQuery={setSearchQuery} filteredItems={filteredItems} />
       </Suspense>
       <div>
-        <MenuContainer users={categories} />
-  <div className='  place-content-center  grid  gap-4 px-14  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 '>
+        <MenuContainer users={categories} setcatgory= { setCategorie}   />
     
     
     {
       
-      Menu.icecreams.map((i)=>
+     
+     
+      loading? <div  className=' grid grid-cols-1 px-10 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+
+
+<Selectonloader></Selectonloader>
+
+<Selectonloader></Selectonloader>
+
+<Selectonloader></Selectonloader>
+
+<Selectonloader></Selectonloader>
+
+</div>:
+
+     ( 
+<div className='  place-content-center  grid  gap-4 px-14  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 '>
+      {
+
+      
+      
+filterdata.map((i,index)=>
         
-<Cards img={ i.imageSrc} name={i.name}></Cards>
+<Cards key={index} _id={i._id} discount={i.discount}  originalPrice={i.originalPrice}  name={i.ProductName}  img={i.image} des={i.Description} price={i.price}></Cards>
+)
+}
+
+</div>      
 )
 
 }
-</div>      
+
+
+
+
+
+
+
+
       </div>
     </>
   );

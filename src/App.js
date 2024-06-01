@@ -16,8 +16,12 @@ import Userlist from './Dashbord/Pages/Users/Userlist'
 import { CartTwo } from './pages/Cart/Cart'
 import Protexted from './Protected/Protexted'
 import { MyContext } from './context/context'
-import { Menu } from './utils/Products'
 import Menuform from './Dashbord/Pages/Menus/Menufrom'
+import Menuupdateform from './Dashbord/Pages/Menus/Menuupdateform'
+import Odertracker from './pages/Odertracker'
+import Odertable from './pages/Odertable'
+import Oderdetails from './Dashbord/Pages/Orders/Oderdetails'
+import Notification from './pages/Notifaction'
 
 function App() {
 
@@ -30,32 +34,40 @@ function App() {
     <>
     <Route  path='/' element={<Layout></Layout>}>
 
-    <Route index element={<Home />} />
+        <Route index element={<Home />} />
     <Route path="/menu" element={<Menuhomepage/>} />
-    <Route path="/about" element={<About />} />
+        <Route path="/about" element={<About />} />
     <Route path="/contact" element={<Contact/>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<Signup/>} />
+        
+    <Route  path="/cart" element={<CartTwo></CartTwo>}/>
+    <Route  path="/odertrack/:id" element={<Odertracker></Odertracker>}/>
+    <Route  path="/odertable" element={<Odertable/>}/>
+    <Route  path="/notifaction/:id" element={<Notification></Notification>}/>
     
-    <Route path="/cart" element={<Protexted user={userdata}> </Protexted>}>
-    <Route index element={<CartTwo></CartTwo>}/>
-    </Route>
     
+    
+     
     </Route>
 
 
-    <Route path='/dashboard' element={ <Protexted user={userdata}>  <DashbordHome/></Protexted>}>
+    <Route path='/dashboard' element={ <Protexted user={userdata.rolls}>  <DashbordHome/></Protexted>}>
     <Route index element={<Dashbordcardhomepage/>}></Route>
     
     <Route path='menu' element={<Menulist/>} />
     <Route path='newmenu' element={<Menuform/>} />
+    <Route path='editmenu/:id' element={<Menuupdateform/>} />
+
     <Route path='order' element={<Orderslists></Orderslists>} />
-    <Route path='users' element={<Userlist />} />
+    
+    <Route  path="odertrack/:id" element={<Oderdetails></Oderdetails>}/>
+        <Route path='users' element={<Userlist />} />
   
 
 
 
-    </Route>
+      </Route>
     
     </>
 

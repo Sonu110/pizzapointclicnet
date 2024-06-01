@@ -42,11 +42,7 @@ function Contact() {
         <iframe
           width="100%"
           height="100%"
-          frameBorder="0"
-          marginHeight="0"
-          marginWidth="0"
           title="map"
-          scrolling="no"
           src="https://maps.google.com/maps?q=KCI%20Education&t=&z=13&ie=UTF8&iwloc=&output=embed"
         ></iframe>
       </div>

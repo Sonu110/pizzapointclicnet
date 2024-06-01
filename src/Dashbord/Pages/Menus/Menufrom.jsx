@@ -47,6 +47,11 @@ function Menuform() {
             setLoadingSubmit(false); // Set loading to false after checking
             return;
         }
+        if (100>= Description.length) {
+            setMessage('Description must be at least 100 words.');
+            setLoadingSubmit(false); // Set loading to false after checking
+            return;
+        }
 
         // Create form data
         const formData = new FormData();
@@ -88,6 +93,14 @@ function Menuform() {
         }
         setLoadingSubmit(false); // Set loading to false after submitting data
     };
+    useEffect(() => {
+        // Calculate net price when originalPrice or discount changes
+        if (originalPrice && discount) {
+            const discountAmount = (parseFloat(originalPrice) * parseFloat(discount)) / 100;
+            const netPrice = parseFloat(originalPrice) - discountAmount;
+            setPrice(netPrice.toString());
+        }
+    }, [originalPrice, discount]);
 
     const handleAddCategory = () => {
         setShowNewCategoryInput(true);
@@ -176,25 +189,14 @@ function Menuform() {
                                             <textarea
                                                 name="Description"
                                                 id="Description"
-                                                className="h-28 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                className="h-28 border mt-1 rounded px-4 w-full bg-gray-50 relative"
                                                 value={Description}
                                                 onChange={(e) => setDescription(e.target.value)}
                                             />
+                                            
+                                            <span className=' absolute  right-20  top-[48%] bg-white'>More than  <span className=' text-red-500'>{ ( 100 - Description.length >=0) ? 100 - Description.length:<span className=' text-green-600  font-bold'>correct</span>} </span> words</span>
                                         </div>
-                                        <div className="md:col-span-2">
-                                            <label htmlFor="price">Price</label>
-                                            <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                                                <input
-                                                    type="number"
-                                                    name="price"
-                                                    id="price"
-                                                    placeholder="Price"
-                                                    className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                                                    value={price}
-                                                    onChange={(e) => setPrice(e.target.value)}
-                                                />
-                                            </div>
-                                        </div>
+                                       
                                         <div className="md:col-span-2">
                                             <label htmlFor="originalPrice">Original Price</label>
                                             <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
@@ -220,6 +222,21 @@ function Menuform() {
                                                 value={discount}
                                                 onChange={(e) => setDiscount(e.target.value)}
                                             />
+
+                                        </div>
+                                        <div className="md:col-span-2">
+                                            <label htmlFor="price">Net Price</label>
+                                            <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                                                <input
+                                                    type="number"
+                                                    name="price"
+                                                    id="price"
+                                                    placeholder="net Price"
+                                                    className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
+                                                    value={price}
+                                                    onChange={(e) => setPrice(e.target.value)}
+                                                />
+                                            </div>
                                         </div>
                                         <div className="md:col-span-5">
                                             <label className="block text-sm font-medium">Home Image</label>

@@ -10,12 +10,12 @@ import { MyProvider } from './context/context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
-    <MyProvider>
 <Provider store={store}>
+    <MyProvider>
     
 
     <App />
-</Provider>
     </MyProvider>
+</Provider>
 );
 
