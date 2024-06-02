@@ -4,7 +4,7 @@ import NotFound from '../assets/img/NotFound.svg';
 import { MdShoppingBasket } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import API_ENDPOINT from '../config';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 const RowContainer = ({ flag, data, scrollValue, cat, res }) => {
   return (
     <div className={`w-full flex items-center gap-3 my-12 scroll-smooth ${flag ? 'overflow-x-scroll scrollbar-none' : 'overflow-x-hidden flex-wrap justify-center'}`} id="scrolling">
@@ -13,7 +13,20 @@ const RowContainer = ({ flag, data, scrollValue, cat, res }) => {
             <div key={index} className="w-275 h-[175px] min-w-[275px] md:w-300 md:min-w-[300px] bg-cardOverlay rounded-lg py-2 px-4 my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative">
               <div className="w-full flex items-center justify-between">
                 <motion.div className="  overflow-hidden w-36 h-36   drop-shadow-xl " whileHover={{ scale: 1.1 }}>
-                  <img   src={`${API_ENDPOINT}/${item?.image}`}  alt="" className=" w-36 min-h-36 rounded-lg   object-cover" />
+
+
+                <LazyLoadImage
+                key={item?.ProductName}
+      alt={item?.ProductName}
+      src={`${API_ENDPOINT}/${item?.image}`}
+       
+      placeholderSrc={NotFound}
+      className=" w-36 min-h-36 rounded-lg   object-cover"
+
+   />
+
+
+                  {/* <img   src={`${API_ENDPOINT}/${item?.image}`} loading='lazy'  alt=""  /> */}
                 </motion.div>
 
                 <motion.div whileTap={{ scale: 0.75 }} className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8">

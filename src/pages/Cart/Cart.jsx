@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem, emptycart, removeItem } from '../../Redux/reducers/Cartslier';
 import { MyContext } from '../../context/context';
-import { Navigate, json, useNavigate } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import API_ENDPOINT from '../../config';
 import Odersucessfull from './Odersucessfull';
 

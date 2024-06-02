@@ -28,6 +28,7 @@ const {userdata} = useContext(MyContext)
         <img
         src={`${API_ENDPOINT}/${img}`}
         alt={img}
+        loading='lazy'
           className="w-full rounded-lg h-52 object-cover  "
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent  via-transparent to-black/60" />
