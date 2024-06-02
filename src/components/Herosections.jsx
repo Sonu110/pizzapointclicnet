@@ -34,7 +34,7 @@ const Herosection = () => {
   }, []);
 
   return (
-    <section className="Herosection section section-divider white bg-red-600 h-screen min-w-screen" id="home">
+    <section className="Herosection section section-divider white  h-screen min-w-screen" id="home">
       <div className="">
 
         <div className=" px-3 md:px-14 hero-content text-white gap-5 flex flex-col items-start justify-center min-h-screen">
