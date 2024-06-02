@@ -12,11 +12,11 @@ const RowContainer = ({ flag, data, scrollValue, cat, res }) => {
         data.map((item,index) => (
             <div key={index} className="w-275 h-[175px] min-w-[275px] md:w-300 md:min-w-[300px] bg-cardOverlay rounded-lg py-2 px-4 my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative">
               <div className="w-full flex items-center justify-between">
-                <motion.div className="  overflow-hidden w-40 h-40   drop-shadow-xl " whileHover={{ scale: 1.1 }}>
-                  <img   src={`${API_ENDPOINT}/${item?.image}`}  alt="" className="w-40 min-h-40 rounded-lg   object-cover" />
+                <motion.div className="  overflow-hidden w-36 h-36   drop-shadow-xl " whileHover={{ scale: 1.1 }}>
+                  <img   src={`${API_ENDPOINT}/${item?.image}`}  alt="" className=" w-36 min-h-36 rounded-lg   object-cover" />
                 </motion.div>
 
-                <motion.div whileTap={{ scale: 0.75 }} className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8">
+                <motion.div whileTap={{ scale: 0.75 }} className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8">
                   <MdShoppingBasket className="text-white" />
                 <p className=" text-sm text-white">{item?.discount}</p>
                 </motion.div>

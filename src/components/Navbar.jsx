@@ -20,8 +20,6 @@ function Navbar() {
   
 const {userdata,   logout , notifications, setnotifications} = useContext(MyContext)
 const cart = useSelector(state => state.cart.items);
-console.log("yes ");
-
 const handleScroll = useCallback(() => {
   const position = window.scrollY;
   setScrollPosition(position);
@@ -75,7 +73,7 @@ const toggleMenu = useCallback(() => {
           menuOpen || !isHomeOrMenu || scrollPosition > 100 ? 'bg-white text-black' : 'bg-transparent text-white'
         } fixed left-0 right-0 top-0 shadow-sm border-solid border-b-2 border-white   md:px-10 py-4 items-center justify-between`}
       >
-        <div className="logo font-bold text-2xl md:text-3xl px-5 ">Pizza.Point</div>
+        <Link to={'/'} className="logo font-bold text-2xl md:text-3xl px-5 ">Pizza.Point</Link>
         <div className=' flex gap-3 items-center'>
       
 
