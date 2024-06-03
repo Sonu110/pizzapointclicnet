@@ -15,7 +15,7 @@ const About = lazy(() => import('./pages/About'));
 const DashbordHome = lazy(() => import('./Dashbord/Pages/Home/DashbordHome'));
 const Dashbordcardhomepage = lazy(() => import('./Dashbord/Pages/Home/Dashbordcardhomepage'));
 const Menulist = lazy(() => import('./Dashbord/Pages/Menus/Menulist'));
-const Orderslists = lazy(() => import('./Dashbord/Pages/Orders/Orderslist'));
+const Orderslists = lazy(() => import('./Dashbord/Pages/Orders/Orderslist')); 
 const Userlist = lazy(() => import('./Dashbord/Pages/Users/Userlist'));
 const CartTwo = lazy(() => import('./pages/Cart/Cart').then((data)=>  ({default :data.CartTwo })));
 const Menuform = lazy(() => import('./Dashbord/Pages/Menus/Menufrom'));
