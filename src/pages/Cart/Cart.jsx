@@ -109,7 +109,7 @@ import Odersucessfull from './Odersucessfull';
             <h2 id="cart-heading" className="sr-only">
               Items in your shopping cart
             </h2>
-            <ul role="list" className="divide-y divide-gray-200">
+            <ul className="divide-y divide-gray-200">
               {cart.map((product) => (
                 <div key={product._id} className="">
                   <li className="flex py-6 sm:py-6">

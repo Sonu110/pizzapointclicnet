@@ -3,7 +3,7 @@ import API_ENDPOINT from '../config';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../Redux/reducers/Cartslier';
 import { MyContext } from '../context/context';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 export  function  Cards({_id,discount,category,originalPrice,img, name  ,des , price}) {
   const dispatch = useDispatch();
