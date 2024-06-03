@@ -6,7 +6,7 @@ import { Navigate} from 'react-router-dom';
 import API_ENDPOINT from '../../config';
 import Odersucessfull from './Odersucessfull';
 
-export function CartTwo() {
+ function CartTwo() {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.items);
   const totalPrice = useSelector(state => state.cart.totalPrice);
@@ -213,3 +213,5 @@ export function CartTwo() {
       </>
   );
 }
+
+export default CartTwo
