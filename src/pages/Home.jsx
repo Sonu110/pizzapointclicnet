@@ -2,6 +2,7 @@ import React, { useEffect, Suspense, lazy } from 'react';
 import Menusrollbar from '../components/Menusrollbar'
 import Catelock from '../components/Catelock'
 import Pizzaloader from '../components/Pizzaloader'
+import Delivery from '../components/Delivery/Delivery';
 const Herosection = lazy(() => import('../components/Herosections'));
 
 function Home() {
@@ -16,6 +17,7 @@ function Home() {
       </Suspense>
      <Menusrollbar></Menusrollbar>
      <Catelock></Catelock>
+     <Delivery></Delivery>
    
   
     </div>

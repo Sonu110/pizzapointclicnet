@@ -254,7 +254,28 @@
 }
 
 
+.delivery-content { margin-block-end: 40px; }
 
+.delivery .section-title {
+  max-width: 17ch;
+  line-height: 1.6;
+  letter-spacing: -2px;
+}
+
+.delivery .section-text { margin-block: 15px 25px; }
+
+.delivery-banner {
+  position: relative;
+  aspect-ratio: 1 / 0.86;
+}
+
+.delivery-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-80px);
+  transition: var(--transition-2);
+}
 
 
 
@@ -265,6 +286,10 @@
 /**
  * responsive for larger than 550px screen
  */
+
+
+
+
 
 @media (min-width: 550px) {
 
@@ -324,7 +349,7 @@ background-image: url('../assets/img/footer-illustration.png');
    * REUSED STYLE
    */
 
-  .container { max-width: 720px; }
+  .container { max-width: 900px;  }
 
 
 
@@ -358,7 +383,7 @@ background-image: url('../assets/img/footer-illustration.png');
 
 
 
-  .container { max-width: 1200px; }
+  .container { max-width: 1200px;  }
 
 
 
